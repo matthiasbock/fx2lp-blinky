@@ -5,7 +5,7 @@ LD = sdcc
 
 SDCCLIB = SDCClib
 OBJCOPY = objcopy
-
+FXLOAD = ../../flashing/libusb/examples/fxload
 
 MAIN = main
 FX2LIB = lib/fx2lib
@@ -27,7 +27,7 @@ LDFLAGS += --xram-loc 0x1c00
 #LDFLAGS += -Wl"-b INT2JT=0x1f00"
 
 
-all: main.hex
+all: $(MAIN).hex
 
 %.rel: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
@@ -39,7 +39,7 @@ all: main.hex
 	$(OBJCOPY) $< -Oihex $@
 
 flash: $(MAIN).hex
-	fxload -I $<
+	$(FXLOAD) -t fx2 -d 04b4:8613 -i $< -v
 
 clean:
-	#rm -f $(MAIN).elf $(MAIN).hex *.o src/*.o
+	rm -f $(MAIN).elf $(MAIN).hex $(OBJS)
