@@ -5,12 +5,24 @@
 
 void main()
 {
-	OEA = 0x3;
+	// Configure pins PA0 and PA1 as outputs
+	OEA = (1 << 0) | (1 << 1);
+
+	// Forever blinky
 	while (1)
 	{
-		IOA = 0;
+		// Enable LEDs on PA0 and PA1
+		PA0 = 0;
+		PA1 = 0;
+
+		// Wait a second
 		delay(1000);
-		IOA = 0x3;
+
+		// Disable LEDs on PA0 and PA1
+		PA0 = 1;
+		PA1 = 1;
+
+		// Wait a second
 		delay(1000);
 	}
 }
